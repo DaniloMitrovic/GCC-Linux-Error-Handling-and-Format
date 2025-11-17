@@ -1,5 +1,5 @@
 # GCC-Linux-Error-Handling-and-Format
-A layered error handling without use of &lt;iostream>, purely reliant on `&lt;ctime>` (and <cstdio>) and gcc builtins. Enables various layers of "panics" and calls.
+A layered error handling without use of "iostream", purely reliant on "ctime" (and "cstdio") and gcc builtins. Enables various layers of "panics" and calls.
 Its intended use is to be used when developing command line tools that should work with bash, simplyfing concepts and allowing for splitting up complex projects into smaller parts. File `sandbox.cpp` was used for testing.
 
 Disclaimer #1: This is tested and working on Ubuntu Numbat. I haven't implemented any NON-POSIX variations, feel free to contribute.  
