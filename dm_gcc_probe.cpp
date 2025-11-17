@@ -143,9 +143,5 @@ struct dm_gcc_error: public dm_gcc_probe
 
 // will terminate on call
 #define dm_gcc_PROBE(msg) 	do { dm_gcc_probe("PROBE",msg,0x20u,true);
-#define dm_gcc_WARN(msg) 		do { dm_gcc_warning(msg, dm_gcc_warning::code | 0x20u, true); } while(0)
-#define dm_gcc_PANIC(msg)		do { dm_gcc_error(msg, dm_gcc_error::code | 0x20u, true); } while(0)
-// will terminate on call
-#define ATUA_PROBE(msg) 	do { atua_probe("PROBE",msg,0x20u,true);
-#define ATUA_WARN(msg) 		do { atua_warning(msg, atua_warning::code | 0x20u, true); } while(0)
-#define ATUA_PANIC(msg)		do { atua_error(msg, atua_error::code | 0x20u, true); } while(0)
+#define dm_gcc_WARN(msg) 	do { dm_gcc_warning(msg, dm_gcc_warning::code | 0x20u, true); } while(0)
+#define dm_gcc_PANIC(msg)	do { dm_gcc_error(msg, dm_gcc_error::code | 0x20u, true); } while(0)
