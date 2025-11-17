@@ -1,10 +1,13 @@
 # GCC-Linux-Error-Handling-and-Format
 A layered error handling without use of &lt;iostream>, purely reliant on `&lt;ctime>` (and <cstdio>) and gcc builtins. Enables various layers of "panics" and calls.
-Its intended use is to be used when developing command line tools that should work with bash, simplyfing concepts and allowing for splitting up complex projects into smaller parts.
+Its intended use is to be used when developing command line tools that should work with bash, simplyfing concepts and allowing for splitting up complex projects into smaller parts. File `sandbox.cpp` was used for testing.
 
-Disclaimer #1: This is tested and working on Ubuntu Numbat. I haven't implemented any NON-POSIX variations, feel free to contribute. 
+Disclaimer #1: This is tested and working on Ubuntu Numbat. I haven't implemented any NON-POSIX variations, feel free to contribute.  
+
 Disclaimer #2: It requires GCC >= 4.7. Its provided with Ubuntu (and some other distros) so CLANG and MSVS aren't implemented, feel free to contribute.
+
 Disclaimer #3: "Divide et impera" - error byte size can be expanded for more complex projects. But my personal belief is that such projects benefit a lot from separation. I will most likely choose not to expand error code size.
+
 Disclaimer #4: "Can't have your cake and eat it too" - On every PANIC error code will be greater or equal than 1, and by assigning different codes you can expand that up to core 127 POSIX shell exit codes. The rest of error code is descriptive only - ie printed and returned with `end_code`. 
 
 ## Layers 
