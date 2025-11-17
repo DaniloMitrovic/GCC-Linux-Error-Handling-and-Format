@@ -1,0 +1,38 @@
+#! /usr/bin/env bash
+
+clear
+# get root execution path (part of different project)
+MY_LOC=$(readlink -f $0)
+MY_LOC=$(dirname $MY_LOC)
+
+# some directories
+COMMAND_DIR="commands"
+SOURCES_DIR="source"
+
+FILENAME="${1:-sandbox}"
+[[ ! -f "$MY_LOC/$FILENAME.cpp" ]] && {
+	echo -e "\x1b[38;2;250;120;120m '$FILENAME' missing from $MY_LOC" >&2
+	exit 1
+}
+
+if g++ -Wall $FILENAME.cpp -o $FILENAME ;then
+	if [[ "$FILENAME" != "sandbox" ]];then
+		echo -e "\x1b[38;2;120;250;120m Successfull compilation of  '$FILENAME'. Moving them now!\x1b[m" >&2
+		mv $MY_LOC/$FILENAME.cpp $MY_LOC/$SOURCES_DIR/$FILENAME.cpp # on success, move code to source directory 
+		mv $MY_LOC/$FILENAME $MY_LOC/$COMMAND_DIR/$FILENAME # on success, move compiled to command directory
+	else
+		echo -e "\x1b[38;2;120;200;255m Successfull compilation of  '$FILENAME'. Running it now!\x1b[m" >&2
+    
+		if [[ "${2,,}" == "--debug" ]];then # for gdb 
+			gdb -q $MY_LOC/$FILENAME
+		elif [[ "${2,,}" == "--check" ]];then # for cppcheck
+			cppcheck $MY_LOC/lib
+		elif [[ "${2,,}" == "--memory" ]];then # for valgrind
+			valgrind -q $MY_LOC/$FILENAME
+		else # dry test
+			./$FILENAME
+			echo $?
+		fi
+		rm $MY_LOC/$FILENAME # removal of sandbox so it doesnt show up if bug occures.
+	fi
+fi
